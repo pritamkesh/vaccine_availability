@@ -117,9 +117,9 @@ def send_email(data_frame, age):
 
 
 if __name__ == "__main__":
-    Ahmedabad = 154
-    Ahmedabad_Corporation = 770
-    dist_ids = [Ahmedabad, Ahmedabad_Corporation]
+    East_Bardhaman = 719
+    West_Bardhaman = 737
+    dist_ids = [East_Bardhaman, West_Bardhaman] 
     next_n_days = 5
     min_age_limit = 18
 
