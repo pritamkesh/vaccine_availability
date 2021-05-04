@@ -121,7 +121,7 @@ if __name__ == "__main__":
     West_Bardhaman = 737
     dist_ids = [East_Bardhaman, West_Bardhaman] 
     next_n_days = 1
-    min_age_limit = 50
+    min_age_limit = 45
 
     availability_data = get_availability(next_n_days, dist_ids, min_age_limit)
     send_email(availability_data, min_age_limit)
