@@ -114,10 +114,10 @@ def send_email(data_frame, age):
 
 if __name__ == "__main__":
     East_Bardhaman = 719
-    West_Bardhaman = 712
+    West_Bardhaman = 737
     #737
     dist_ids = [East_Bardhaman, West_Bardhaman] 
-    min_age_limit = 45
+    min_age_limit = 18
 
     availability_data = get_availability(dist_ids, min_age_limit)
     send_email(availability_data, min_age_limit)
