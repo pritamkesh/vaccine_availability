@@ -36,11 +36,8 @@ def get_data(URL):
     data = json.loads(response.text)['centers']
     return data
 
-def get_availability(days: int, district_ids: List[int], min_age_limit: int):
-    base = datetime.datetime.today()
-    date_list = [base + datetime.timedelta(days=x) for x in range(days)]
-    date_str = [x.strftime("%d-%m-%Y") for x in date_list]
-    INP_DATE = date_str[-1]
+def get_availability(district_ids: List[int], min_age_limit: int):
+    INP_DATE = datetime.datetime.today().strftime("%d-%m-%Y")
 
     all_date_df = None
 
@@ -61,9 +58,10 @@ def get_availability(days: int, district_ids: List[int], min_age_limit: int):
                 all_date_df = df
 
     if all_date_df is not None:
-        all_date_df = all_date_df.drop(["block_name"], axis=1).sort_values(["date", "min_age_limit", "district_name", "available_capacity"], ascending=[True, True, True, False])
+        all_date_df = all_date_df.drop(["block_name"], axis=1).sort_values(["min_age_limit", "available_capacity", "date", "district_name"], ascending=[True, False, True, True])
         all_date_df = all_date_df[all_date_df.min_age_limit >= min_age_limit]
         all_date_df = all_date_df[all_date_df.available_capacity>0]
+        all_date_df.set_index('date', inplace=True)
         return all_date_df
     return pd.DataFrame()
 
@@ -90,7 +88,6 @@ def send_email(data_frame, age):
     <html>
       <body>
         <p>
-
     """
 
     html_footer = """\
@@ -115,14 +112,12 @@ def send_email(data_frame, age):
             sender_email, receiver_email, message.as_string()
         )
 
-
 if __name__ == "__main__":
     East_Bardhaman = 719
     West_Bardhaman = 712
     #737
     dist_ids = [East_Bardhaman, West_Bardhaman] 
-    next_n_days = 1
     min_age_limit = 45
 
-    availability_data = get_availability(next_n_days, dist_ids, min_age_limit)
+    availability_data = get_availability(dist_ids, min_age_limit)
     send_email(availability_data, min_age_limit)
