@@ -115,7 +115,6 @@ def send_email(data_frame, age):
 if __name__ == "__main__":
     East_Bardhaman = 719
     West_Bardhaman = 737
-    #737
     dist_ids = [East_Bardhaman, West_Bardhaman] 
     min_age_limit = 18
 
